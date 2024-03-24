@@ -1,0 +1,2 @@
+require("pmburlacu")
+print("hello")
