@@ -8,12 +8,13 @@ autoload -U compinit && compinit
 export ZSH="$HOME/.oh-my-zsh"
 export PATH=/opt/homebrew/bin:$PATH
 export PATH="/usr/local/opt/openjdk@17/bin:$PATH"
+export PATH="$HOME/.rd/bin:$PATH"
+# export PATH="/Users/pburlacuopus2.com/Development/personal/aerospace/bin/aerospace"
 export namespace=pburlacu
 export Platform_env=aws
 export JAVA_HOME="/Users/pburlacuopus2.com/Library/Java/JavaVirtualMachines/corretto-21.0.4/Contents/Home/"
 
 export QEMU_EXECUTABLE=$(which qemu-system-x86_64)
-
 
 
 
@@ -120,4 +121,5 @@ source /opt/homebrew/opt/nvm/nvm.sh
 
 export PATH="$HOME/.rye/env:$PATH"
 source "$HOME/.rye/env"
-export DOCKER_HOST=unix:///Users/pburlacuopus2.com/.docker/run/docker.sock
+#
+
