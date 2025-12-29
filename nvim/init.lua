@@ -1,2 +1,0 @@
-require("pmburlacu")
-print("hello")
