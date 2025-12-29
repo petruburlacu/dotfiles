@@ -36,6 +36,9 @@ keymap.set("n", "<C-s>", ":w<CR>", { desc = "Save file" })
 keymap.set("n", "<leader>q", ":q<CR>", { desc = "Quit" })
 keymap.set("n", "<leader>Q", ":qa!<CR>", { desc = "Quit all without saving" })
 
+-- Plugin Management (Lazy.nvim)
+keymap.set("n", "<leader>p", ":Lazy<CR>", { desc = "Open Lazy plugin manager" })
+
 -- Buffer navigation
 keymap.set("n", "<S-h>", ":bprevious<CR>", { desc = "Previous buffer" })
 keymap.set("n", "<S-l>", ":bnext<CR>", { desc = "Next buffer" })

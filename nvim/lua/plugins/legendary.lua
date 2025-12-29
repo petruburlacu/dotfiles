@@ -75,11 +75,39 @@ return {
       require("legendary").commands({
         {
           ":Lazy",
-          description = "Open Lazy plugin manager",
+          description = "Open Lazy plugin manager (install/update/sync plugins)",
+        },
+        {
+          ":Lazy sync",
+          description = "Sync plugins (install missing + update existing + clean unused)",
+        },
+        {
+          ":Lazy update",
+          description = "Update all plugins",
+        },
+        {
+          ":Lazy clean",
+          description = "Remove unused plugins",
+        },
+        {
+          ":TSUpdate",
+          description = "Update/install Treesitter parsers",
         },
         {
           ":Mason",
           description = "Open Mason LSP installer (when LSP is configured)",
+        },
+        {
+          ":ClaudeCode",
+          description = "Toggle Claude Code terminal (requires Claude CLI)",
+        },
+        {
+          ":ClaudeCodeFocus",
+          description = "Focus Claude Code terminal",
+        },
+        {
+          ":ClaudeCodeSelectModel",
+          description = "Select Claude model",
         },
         {
           ":checkhealth",
@@ -428,6 +456,222 @@ Press any key to close...
             vim.notify(lsp_help, vim.log.levels.INFO)
           end,
           description = "[HELP] How to use LSP (autocomplete, go to def, etc.)",
+        },
+        {
+          function()
+            local git_help = [[
+GIT INTEGRATION:
+
+Setup:
+  Works automatically in git repositories
+  Git signs appear in the gutter (left side)
+  │ = added line, ~ = changed, _ = deleted
+
+Gitsigns Commands (<Space>g):
+  <Space> g s   - Stage hunk (stage changes)
+  <Space> g r   - Reset hunk (undo changes)
+  <Space> g S   - Stage entire buffer
+  <Space> g R   - Reset entire buffer
+  <Space> g p   - Preview hunk (see changes)
+  <Space> g b   - Blame line (who changed this)
+  <Space> g B   - Toggle line blame (always show)
+  <Space> g d   - Diff this file
+  ]h / [h       - Next/previous hunk
+
+Fugitive Commands (<Space>g):
+  <Space> g g   - Git status (interactive)
+  <Space> g c   - Git commit
+  <Space> g P   - Git push
+  <Space> g p   - Git pull
+  <Space> g l   - Git log
+
+Common Workflows:
+  Review changes: <Space>gp to preview hunks
+  Stage changes: <Space>gs on each hunk
+  Commit: <Space>gc
+  Push: <Space>gP
+
+In Git Status (fugitive):
+  s - Stage file/hunk
+  u - Unstage file
+  = - Toggle inline diff
+  cc - Create commit
+  Press ? for more help
+
+Press any key to close...
+]]
+            vim.notify(git_help, vim.log.levels.INFO)
+          end,
+          description = "[HELP] How to use Git integration",
+        },
+        {
+          function()
+            local plugin_help = [[
+PLUGIN MANAGEMENT (Lazy.nvim):
+
+Quick Access:
+  <Space> p         - Open Lazy plugin manager
+  :Lazy             - Open Lazy plugin manager
+  <C-p>             - Command palette (search for "Lazy")
+
+Main Lazy Interface Commands:
+  I - Install missing plugins
+  U - Update plugins
+  S - Sync (install + update + clean)
+  X - Clean (remove unused plugins)
+  C - Check for updates
+  L - Show log
+  P - Profile startup time
+  D - Show plugin details
+
+Common Workflows:
+
+Install New Plugins:
+  1. Add plugin to lua/plugins/*.lua
+  2. Save file (Lazy auto-detects changes)
+  3. Press <Space>p or :Lazy
+  4. Press I to install
+  5. Restart Neovim
+
+Update All Plugins:
+  1. Press <Space>p or :Lazy
+  2. Press U to update all
+  3. Or press S to sync everything
+
+Remove Plugin:
+  1. Delete/comment plugin from lua/plugins/*.lua
+  2. Save file
+  3. Press <Space>p or :Lazy
+  4. Press X to clean unused
+
+Treesitter Parsers:
+  :TSUpdate         - Install/update all parsers
+  :TSInstall <lang> - Install specific parser
+  :TSInstallInfo    - Show parser status
+
+LSP Servers (Mason):
+  :Mason            - Open LSP installer
+  <Space>li         - LSP Info (shows active servers)
+
+Check Health:
+  :checkhealth      - Check all plugin health
+  :checkhealth lazy - Check Lazy.nvim health
+
+Troubleshooting:
+  :Lazy restore     - Restore plugins to lockfile state
+  :Lazy clear       - Clear finished tasks
+  :Lazy log         - Show recent log
+  :Lazy profile     - Profile startup time
+
+Press any key to close...
+]]
+            vim.notify(plugin_help, vim.log.levels.INFO)
+          end,
+          description = "[HELP] How to manage plugins (Lazy, Mason, Treesitter)",
+        },
+        {
+          function()
+            local ai_help = [[
+CLAUDE CODE INTEGRATION (claudecode.nvim):
+
+Prerequisites:
+  1. Install Claude Code CLI:
+     npm install -g @anthropic-ai/claude-code
+
+  2. Verify installation:
+     claude doctor
+
+  3. Authenticate (if not already done):
+     Follow prompts when first running Claude
+
+How It Works:
+  - Opens Claude Code CLI in a terminal within Neovim
+  - Full IDE integration via Model Context Protocol (MCP)
+  - Claude can read files, run commands, and suggest changes
+  - You control what Claude has access to
+
+Claude Commands (<Space>c):
+  <Space> c c   - Toggle Claude terminal window
+  <Space> c f   - Focus Claude terminal (smart focus/toggle)
+  <Space> c s   - Send visual selection to Claude (in visual mode)
+  <Space> c m   - Select Claude model
+  <Space> c a   - Add current file to Claude context
+
+Additional Commands:
+  :ClaudeCode              - Toggle Claude terminal
+  :ClaudeCodeFocus         - Focus Claude terminal
+  :ClaudeCodeSelectModel   - Choose model
+  :ClaudeCodeAdd <file>    - Add file to context
+  :ClaudeCodeDiffAccept    - Accept Claude's diff changes
+  :ClaudeCodeDiffDeny      - Reject Claude's diff changes
+
+Basic Usage:
+
+1. Open Claude Terminal:
+   - Press <Space>cc
+   - Claude opens in right split (40% width)
+
+2. Chat with Claude:
+   - Type naturally: "Help me refactor this function"
+   - Claude can see your current file automatically
+   - Ask questions, request explanations, get suggestions
+
+3. Send Code to Claude:
+   - Select code in visual mode
+   - Press <Space>cs
+   - Code is sent to Claude for analysis
+
+4. Add Files to Context:
+   - Press <Space>ca to add current file
+   - Or use :ClaudeCodeAdd path/to/file.py
+
+5. Review and Apply Changes:
+   - Claude will suggest changes via diffs
+   - Use :ClaudeCodeDiffAccept to apply
+   - Use :ClaudeCodeDiffDeny to reject
+
+Example Workflows:
+
+Explain Code:
+  1. Open file with code you want explained
+  2. Press <Space>cc
+  3. Ask: "Explain what this function does"
+  4. Claude reads the file and explains
+
+Refactor with Selection:
+  1. Select code in visual mode
+  2. Press <Space>cs
+  3. Ask: "Can you refactor this to be more efficient?"
+  4. Claude suggests improvements
+
+Debug:
+  1. Press <Space>cc
+  2. Describe the bug
+  3. Claude analyzes and suggests fixes
+  4. Review diff and accept with :ClaudeCodeDiffAccept
+
+Available Models:
+  - Claude Sonnet 4.5 (default - fast, capable)
+  - Claude Opus 4.5 (most capable)
+  - Use <Space>cm to switch models
+
+Terminal Location:
+  Right side panel, 40% width
+  Working directory: Git repository root (if available)
+
+Tips:
+  - Claude can see files in your project
+  - Be specific about what you want
+  - Review all suggested changes before accepting
+  - Use :ClaudeCodeAdd to give Claude more context
+
+Configuration: See lua/plugins/ai.lua
+
+Press any key to close...
+]]
+            vim.notify(ai_help, vim.log.levels.INFO)
+          end,
+          description = "[HELP] How to use Claude AI (chat interface)",
         },
       })
     end,

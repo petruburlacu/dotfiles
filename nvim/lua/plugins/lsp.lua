@@ -131,19 +131,20 @@ return {
       "williamboman/mason.nvim",
     },
     config = function()
-      local lsp_zero = require("lsp-zero")
-
       require("mason-lspconfig").setup({
         ensure_installed = {
-          "lua_ls",     -- Lua
+          "lua_ls",        -- Lua
           "rust_analyzer", -- Rust
-          "ts_ls",      -- TypeScript/JavaScript
-          "pyright",    -- Python
-          "gopls",      -- Go
+          "ts_ls",         -- TypeScript/JavaScript
+          "pyright",       -- Python
+          "gopls",         -- Go
         },
         handlers = {
-          lsp_zero.default_setup,
-          -- Custom configuration for specific servers
+          -- Default handler for all servers
+          function(server_name)
+            require("lspconfig")[server_name].setup({})
+          end,
+          -- Custom configuration for Lua
           lua_ls = function()
             require("lspconfig").lua_ls.setup({
               settings = {

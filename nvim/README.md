@@ -15,6 +15,14 @@ A minimal, modern Neovim configuration built with Lua and lazy.nvim.
 - **LSP Installer**: [Mason](https://github.com/williamboman/mason.nvim) - Install language servers easily
 - **Autocompletion**: [nvim-cmp](https://github.com/hrsh7th/nvim-cmp) - Smart code completion
 - **Snippets**: [LuaSnip](https://github.com/L3MON4D3/LuaSnip) + [friendly-snippets](https://github.com/rafamadriz/friendly-snippets) - Code snippets
+- **Syntax Highlighting**: [nvim-treesitter](https://github.com/nvim-treesitter/nvim-treesitter) - Advanced syntax parsing and highlighting
+
+### Git Integration
+- **Git Signs**: [gitsigns.nvim](https://github.com/lewis6991/gitsigns.nvim) - Show git changes in gutter
+- **Git Interface**: [vim-fugitive](https://github.com/tpope/vim-fugitive) - Complete git interface
+
+### AI Features
+- **Claude Integration**: [claudecode.nvim](https://github.com/coder/claudecode.nvim) - Interactive AI assistant with chat interface, code explanations, fixes, and more
 
 ### Navigation & Editing
 - **File Explorer**: [Neo-tree](https://github.com/nvim-neo-tree/neo-tree.nvim) - Modern file explorer with sidebar
@@ -99,6 +107,19 @@ nvim/
 ### Leader Key Mappings
 
 Press `<Space>` (leader) and wait - **which-key** will show available commands!
+
+#### Plugin Management (`<leader>p`)
+| Key | Action |
+|-----|--------|
+| `<leader>p` | Open Lazy plugin manager |
+
+**Lazy.nvim Interface Commands:**
+- Press `I` to install missing plugins
+- Press `U` to update plugins
+- Press `S` to sync (install + update + clean)
+- Press `X` to clean unused plugins
+- Press `C` to check for updates
+- See `[HELP] How to manage plugins` in command palette for detailed guide
 
 #### File Operations
 | Key | Action |
@@ -287,6 +308,148 @@ View documentation:
 2. Press K
 ```
 
+#### Git Integration (`<leader>g`)
+Visual git integration with signs in the gutter and powerful git commands:
+
+**Git Signs:**
+- `│` = Added line
+- `~` = Changed line
+- `_` = Deleted line
+- Appears automatically in git repositories
+
+**Gitsigns Commands:**
+| Key | Action |
+|-----|--------|
+| `<leader>gs` | Stage hunk (stage this change) |
+| `<leader>gr` | Reset hunk (undo this change) |
+| `<leader>gS` | Stage entire buffer |
+| `<leader>gR` | Reset entire buffer |
+| `<leader>gp` | Preview hunk (see what changed) |
+| `<leader>gb` | Blame line (who changed this) |
+| `<leader>gB` | Toggle line blame (always show) |
+| `<leader>gd` | Diff this file |
+| `]h` / `[h` | Next/previous hunk |
+
+**Fugitive Commands:**
+| Key | Action |
+|-----|--------|
+| `<leader>gg` | Git status (interactive) |
+| `<leader>gc` | Git commit |
+| `<leader>gP` | Git push |
+| `<leader>gp` | Git pull |
+| `<leader>gl` | Git log |
+
+**Common Workflow:**
+```
+Review changes:
+1. Press <leader>gp to preview each hunk
+2. Press ]h to go to next change
+
+Stage and commit:
+1. Press <leader>gs to stage hunks
+2. Press <leader>gc to commit
+3. Press <leader>gP to push
+```
+
+#### Claude AI (`<leader>c`)
+Interactive AI assistant with chat interface powered by Claude Sonnet 4.5:
+
+**⚠️ READ-ONLY MODE ENABLED**
+
+Claude is configured to provide **suggestions only** and will **NOT modify files directly**. You maintain full control and implement all changes yourself. This ensures:
+- ✅ Full control over your codebase
+- ✅ Learning by doing
+- ✅ No accidental modifications
+- ✅ Review before applying changes
+
+**Setup:**
+Set your API key in environment variable:
+```bash
+export ANTHROPIC_API_KEY="your-api-key-here"
+```
+
+Add to `~/.bashrc` or `~/.zshrc` to make it permanent.
+
+**Features:**
+- 💬 Interactive chat window (side panel)
+- ⚡ Streaming responses in real-time
+- 📝 Persistent conversation history
+- 💡 Suggestions-only mode (no file modifications)
+- 📋 Manual code insertion via `<leader>ci`
+
+**Claude Commands:**
+| Key | Action |
+|-----|--------|
+| `<leader>cc` | Toggle Claude chat window |
+| `<leader>ce` | Explain code/selection |
+| `<leader>cf` | Fix code/selection |
+| `<leader>co` | Optimize code/selection |
+| `<leader>cr` | Refactor code/selection |
+| `<leader>ct` | Generate tests |
+| `<leader>cd` | Add documentation |
+| `<leader>cn` | New chat conversation |
+| `<leader>ci` | Insert response at cursor |
+| `<leader>ch` | Show chat history |
+| `<leader>cC` | Clear current chat |
+
+**Chat Interface:**
+The chat window opens as a side panel (right side, 40% width) with:
+- Real-time streaming responses
+- Syntax-highlighted code blocks
+- Scrollable conversation history
+- Easy navigation with Enter to send messages
+
+**How Read-Only Mode Works:**
+1. **Ask Claude** for help via chat or quick actions
+2. **Claude analyzes** and provides suggestions with code examples
+3. **You review** the suggestions in the chat panel
+4. **You implement** changes yourself (copy/paste or type)
+5. **Optional**: Use `<leader>ci` to insert Claude's code at cursor
+
+**Usage:**
+- **Chat mode**: Open with `<leader>cc`, type question, press Enter
+- **Quick actions**: Get suggestions for fixes, refactors, tests, etc.
+- **Visual mode**: Select code first for targeted suggestions
+- **Implementation**: You copy/paste or manually apply all changes
+
+**Examples:**
+```
+Interactive Chat:
+1. Press <leader>cc (chat window opens on right)
+2. Type: "How do I handle errors in Python?"
+3. Press Enter to send
+4. Watch streaming response appear
+5. Continue conversation naturally
+
+Explain Code:
+1. Select code in visual mode
+2. Press <leader>ce
+3. Chat window opens with explanation
+
+Fix Bugs:
+1. Position cursor on buggy code
+2. Press <leader>cf
+3. Claude suggests fixes in chat panel
+
+Insert Code:
+1. Ask Claude for code in chat
+2. Press <leader>ci
+3. Response inserted at cursor position
+
+Generate Tests:
+1. Open function to test
+2. Press <leader>ct
+3. Claude generates test cases in chat
+4. Use <leader>ci to insert them
+```
+
+**Configuration:**
+- Mode: READ-ONLY (suggestions only, no autonomous file modifications)
+- System prompt: Configured to never edit files directly
+- See `CLAUDE.md` in project root for detailed configuration
+
+**Powered by:** Claude Sonnet 4.5 via [claudecode.nvim](https://github.com/coder/claudecode.nvim)
+
 ### Comments
 
 | Key | Mode | Action |
@@ -359,6 +522,9 @@ The command palette includes searchable help documentation:
 - `[HELP] How to select text and code blocks` - Text objects explained
 - `[HELP] How to format and indent code` - Formatting and indentation guide
 - `[HELP] How to use LSP` - IDE features, autocomplete, go to definition, etc.
+- `[HELP] How to use Git integration` - Git signs, staging, commits, and more
+- `[HELP] How to manage plugins` - Lazy.nvim, Mason, and Treesitter management
+- `[HELP] How to use Claude AI` - AI-powered code assistance
 
 Just press `<C-p>` and type "help" to see all guides!
 
@@ -416,6 +582,47 @@ return {
 
 lazy.nvim will automatically detect and install new plugins.
 
+### Managing Plugins
+
+**Quick Access:** Press `<leader>p` or run `:Lazy` to open the plugin manager interface.
+
+**Common Tasks:**
+
+1. **Update all plugins:**
+   - Press `<leader>p` to open Lazy
+   - Press `U` to update all plugins
+   - Or run `:Lazy update`
+
+2. **Sync plugins** (install missing + update + clean):
+   - Press `<leader>p` to open Lazy
+   - Press `S` to sync
+   - Or run `:Lazy sync`
+
+3. **Install new plugin:**
+   - Add plugin spec to any file in `lua/plugins/`
+   - Save the file (Lazy auto-detects changes)
+   - Press `<leader>p` and then `I` to install
+   - Restart Neovim
+
+4. **Remove plugin:**
+   - Delete or comment out plugin from `lua/plugins/`
+   - Save the file
+   - Press `<leader>p` and then `X` to clean
+   - Restart Neovim
+
+**Update Treesitter parsers:**
+```
+:TSUpdate
+```
+
+**Update LSP servers:**
+```
+:Mason
+```
+Then press `U` to update installed servers.
+
+For detailed instructions, press `<C-p>` and search for `[HELP] How to manage plugins`.
+
 ## Getting Started with LSP
 
 The configuration includes full LSP support! Here's how to start using IDE features:
@@ -459,13 +666,60 @@ Try this to see LSP in action:
 3. Press Enter and start typing - you'll see completions!
 4. Hover over `def` and press `K` to see documentation
 
+## Advanced Features Setup
+
+### Treesitter (Syntax Highlighting)
+
+Treesitter provides advanced syntax highlighting and code parsing. It's already configured and will automatically install parsers for supported languages.
+
+**Auto-installed languages:**
+Lua, Python, JavaScript, TypeScript, Rust, Go, HTML, CSS, JSON, YAML, Markdown, Bash, C, C++
+
+**Additional text objects:**
+- `af` / `if` - Function (around/inside)
+- `ac` / `ic` - Class (around/inside)
+- `aa` / `ia` - Parameter/argument (around/inside)
+- `]f` / `[f` - Next/previous function
+- `]c` / `[c` - Next/previous class
+
+### Git Integration Setup
+
+Git features work automatically in git repositories:
+1. Open a file in a git repo
+2. Git signs appear in the gutter automatically
+3. Use `<leader>g` commands to interact with git
+
+### Claude AI Setup
+
+1. Get API key from https://console.anthropic.com/
+2. Set environment variable:
+   ```bash
+   echo 'export ANTHROPIC_API_KEY="your-key"' >> ~/.bashrc
+   source ~/.bashrc
+   ```
+3. Restart your shell or run `source ~/.bashrc`
+4. Open Neovim and press `<leader>cc` to open the chat window!
+
+**Features:**
+- Interactive chat interface with streaming responses
+- Code-aware quick actions (suggestions only)
+- Persistent conversation history
+- Manual code insertion (you control when/what gets inserted)
+- **Read-only mode**: Claude never modifies files autonomously
+
+**Read-Only Workflow:**
+- Claude provides suggestions and code examples in chat
+- You review and decide what to implement
+- You manually apply changes (copy/paste or type)
+- Full control and learning experience
+
 ## Future Additions
 
 Possible enhancements:
-- Treesitter syntax highlighting (better code parsing)
-- Debugging (DAP)
-- Git integration (gitsigns)
-- AI completion (GitHub Copilot, etc.)
+- Debugging support (DAP)
+- Additional AI providers (GitHub Copilot, etc.)
+- More language-specific plugins
+- Project management features
 
 ## Troubleshooting
 
