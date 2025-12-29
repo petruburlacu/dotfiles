@@ -1,9 +1,5 @@
 # dotfiles
 
-My minimal configuration for Arch Linux, Neovim, terminal, and more.
-
-## Overview
-
 This repository serves as the single source of truth for my Linux dotfiles. Configuration files are stored here and symlinked to their appropriate locations in `~/.config/`.
 
 ## Structure
