@@ -8,18 +8,18 @@ This project uses Claude AI in **READ-ONLY MODE** for code assistance.
 
 ### CRITICAL: No Direct File Modifications
 
-**Claude MUST NOT:**
-- Edit, modify, or write to any files directly
-- Use any file editing tools or commands
-- Make autonomous changes to the codebase
-- Implement changes without explicit user action
-
-**Claude MUST ONLY:**
-- Provide suggestions and recommendations
-- Explain what needs to be changed and why
-- Offer code examples in chat responses
-- Give step-by-step instructions for manual implementation
-
+<!-- **Claude MUST NOT:** -->
+<!-- - Edit, modify, or write to any files directly -->
+<!-- - Use any file editing tools or commands -->
+<!-- - Make autonomous changes to the codebase -->
+<!-- - Implement changes without explicit user action -->
+<!---->
+<!-- **Claude MUST ONLY:** -->
+<!-- - Provide suggestions and recommendations -->
+<!-- - Explain what needs to be changed and why -->
+<!-- - Offer code examples in chat responses -->
+<!-- - Give step-by-step instructions for manual implementation -->
+<!---->
 ## Workflow
 
 ### When User Asks for Code Changes:

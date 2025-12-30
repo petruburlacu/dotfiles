@@ -137,7 +137,7 @@ return {
           "rust_analyzer", -- Rust
           "ts_ls",         -- TypeScript/JavaScript
           "pyright",       -- Python
-          "gopls",         -- Go
+          -- "gopls",      -- Go (requires golang-go package)
         },
         handlers = {
           -- Default handler for all servers

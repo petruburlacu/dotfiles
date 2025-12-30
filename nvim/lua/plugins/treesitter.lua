@@ -2,18 +2,17 @@ return {
   {
     "nvim-treesitter/nvim-treesitter",
     build = ":TSUpdate",
-    event = { "BufReadPost", "BufNewFile" },
-    dependencies = {
-      "nvim-treesitter/nvim-treesitter-textobjects",
-    },
+    lazy = false, -- Official docs: treesitter does not support lazy-loading
     config = function()
-      local status_ok, treesitter = pcall(require, "nvim-treesitter.configs")
+      -- Check if treesitter is properly installed first
+      local status_ok, treesitter_configs = pcall(require, "nvim-treesitter.configs")
       if not status_ok then
-        vim.notify("nvim-treesitter not loaded yet. Run :TSUpdate to install parsers.", vim.log.levels.WARN)
+        -- First time install - treesitter not ready yet
+        -- It will be configured on next restart after :TSUpdate completes
         return
       end
 
-      treesitter.setup({
+      treesitter_configs.setup({
         -- Install parsers for these languages
         ensure_installed = {
           "lua",
@@ -70,44 +69,51 @@ return {
             node_decremental = "<bs>",
           },
         },
-
-        -- Textobjects module for better code navigation
-        textobjects = {
-          select = {
-            enable = true,
-            lookahead = true,
-            keymaps = {
-              -- You can use the capture groups defined in textobjects.scm
-              ["af"] = "@function.outer",
-              ["if"] = "@function.inner",
-              ["ac"] = "@class.outer",
-              ["ic"] = "@class.inner",
-              ["aa"] = "@parameter.outer",
-              ["ia"] = "@parameter.inner",
-            },
-          },
-          move = {
-            enable = true,
-            set_jumps = true,
-            goto_next_start = {
-              ["]f"] = "@function.outer",
-              ["]c"] = "@class.outer",
-            },
-            goto_next_end = {
-              ["]F"] = "@function.outer",
-              ["]C"] = "@class.outer",
-            },
-            goto_previous_start = {
-              ["[f"] = "@function.outer",
-              ["[c"] = "@class.outer",
-            },
-            goto_previous_end = {
-              ["[F"] = "@function.outer",
-              ["[C"] = "@class.outer",
-            },
-          },
-        },
       })
     end,
   },
+
+  -- Textobjects - only uncomment AFTER treesitter is working
+  -- {
+  --   "nvim-treesitter/nvim-treesitter-textobjects",
+  --   dependencies = "nvim-treesitter/nvim-treesitter",
+  --   config = function()
+  --     require("nvim-treesitter.configs").setup({
+  --       textobjects = {
+  --         select = {
+  --           enable = true,
+  --           lookahead = true,
+  --           keymaps = {
+  --             ["af"] = "@function.outer",
+  --             ["if"] = "@function.inner",
+  --             ["ac"] = "@class.outer",
+  --             ["ic"] = "@class.inner",
+  --             ["aa"] = "@parameter.outer",
+  --             ["ia"] = "@parameter.inner",
+  --           },
+  --         },
+  --         move = {
+  --           enable = true,
+  --           set_jumps = true,
+  --           goto_next_start = {
+  --             ["]f"] = "@function.outer",
+  --             ["]c"] = "@class.outer",
+  --           },
+  --           goto_next_end = {
+  --             ["]F"] = "@function.outer",
+  --             ["]C"] = "@class.outer",
+  --           },
+  --           goto_previous_start = {
+  --             ["[f"] = "@function.outer",
+  --             ["[c"] = "@class.outer",
+  --           },
+  --           goto_previous_end = {
+  --             ["[F"] = "@function.outer",
+  --             ["[C"] = "@class.outer",
+  --           },
+  --         },
+  --       },
+  --     })
+  --   end,
+  -- },
 }

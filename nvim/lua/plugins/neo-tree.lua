@@ -40,7 +40,15 @@ return {
       popup_border_style = "rounded",
       enable_git_status = true,
       enable_diagnostics = true,
-      enable_normal_mode_for_inputs = false,
+      event_handlers = {
+        {
+          event = "neo_tree_popup_input_ready",
+          handler = function(args)
+            -- Enter insert mode automatically for inputs
+            vim.keymap.set("i", "<esc>", vim.cmd.stopinsert, { noremap = true, buffer = args.bufnr })
+          end,
+        },
+      },
       default_component_configs = {
         indent = {
           indent_size = 2,
