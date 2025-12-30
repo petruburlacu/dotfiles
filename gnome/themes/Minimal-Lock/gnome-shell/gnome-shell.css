@@ -1,0 +1,39 @@
+/* Minimal Lock Screen Theme - Based on Yaru-purple-dark */
+/* This theme keeps everything from Yaru-purple-dark but hides the user avatar */
+
+/* First import the base Yaru-purple-dark theme */
+@import url("file:///usr/share/themes/Yaru-purple-dark/gnome-shell/gnome-shell.css");
+
+/* Now override just the user avatar visibility */
+
+/* Hide the user avatar/icon on lock screen */
+.login-dialog .user-icon,
+.login-dialog StIcon.user-icon {
+    opacity: 0 !important;
+    width: 0 !important;
+    height: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+/* Hide the user avatar in the unlock dialog */
+.unlock-dialog .user-icon,
+.unlock-dialog StIcon.user-icon {
+    opacity: 0 !important;
+    width: 0 !important;
+    height: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+/* Adjust the spacing where the avatar was */
+.login-dialog .user-widget,
+.unlock-dialog .user-widget {
+    padding-top: 0 !important;
+    margin-top: 0 !important;
+}
+
+/* Make the prompt more centered since avatar is gone */
+.login-dialog-prompt-layout {
+    padding-top: 24px;
+}

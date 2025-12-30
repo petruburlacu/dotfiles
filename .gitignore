@@ -1,0 +1,28 @@
+# Secrets and sensitive information
+.zsh_secrets
+**/secrets
+**/.env
+**/.env.*
+!**/.env.example
+
+# Backup files
+*.backup.*
+*~
+
+# OS-specific
+.DS_Store
+Thumbs.db
+
+# Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Logs
+*.log
+
+# Temporary files
+tmp/
+temp/

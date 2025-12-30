@@ -87,6 +87,8 @@ return {
         mappings = {
           ["<space>"] = "none",
           ["<cr>"] = "open",
+          ["l"] = "open",
+          ["h"] = "close_node",
           ["S"] = "open_split",
           ["s"] = "open_vsplit",
           ["t"] = "open_tabnew",

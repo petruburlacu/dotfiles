@@ -1,0 +1,13 @@
+blur-my-shell@aunetx
+auto-move-windows@gnome-shell-extensions.gcampax.github.com
+vim-altTab@kokong.info
+gnome-shell-extension-maximized-by-default@stiggimy.github.com
+wctx@slightlyfaulty.github.io
+user-theme@gnome-shell-extensions.gcampax.github.com
+clipboard-indicator@tudmotu.com
+Vitals@CoreCoding.com
+wiggle@mechtifs
+ding@rastersoft.com
+tiling-assistant@ubuntu.com
+ubuntu-appindicators@ubuntu.com
+ubuntu-dock@ubuntu.com
